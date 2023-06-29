@@ -8,6 +8,7 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Timeline
+import QtQuick.Studio.LogicHelper 1.0
 
 
 
@@ -45,17 +46,19 @@ Item {
 
     Rectangle{
         id:speedGauge
-        x: 625
-        y: 360
+        x: 620
+        y: 356
         width: 50
         height: 50
         radius: width
+        rotation: -1.018
         color:"transparent"
         Image {
             id: wskazowka_02_PNG
-            x: -160
-            y: 30
+            x: -90
+            y: -117
             source: "../Gaugespictures/Wskazowka_02_PNG.png"
+            rotation: 90
             fillMode: Image.PreserveAspectFit
         }
     }
@@ -67,10 +70,10 @@ Item {
                 id: timelineAnimation
                 pingPong: true
                 loops: -1
-                duration: 4000
+                duration: 7000
                 running: true
                 to: 1000
-                from: 500
+                from:500
             }
         ]
         startFrame: 0
@@ -90,9 +93,6 @@ Item {
                 frame: 0
             }
         }
-
-
-
     }
 
     Timeline {
@@ -102,10 +102,10 @@ Item {
                 id: timelineAnimation2
                 pingPong: true
                 loops: -1
-                duration: 4000
+                duration: 7000
                 running: true
                 to: 1000
-                from: 500
+                from: 0
             }
         ]
         startFrame: 0
@@ -116,18 +116,42 @@ Item {
             target: speedGauge
             property: "rotation"
             Keyframe {
-                value: 200
+                value: 110
                 frame: 1000
             }
 
             Keyframe {
-                value: -200
+                value: -90
                 frame: 0
             }
         }
+    }
 
+    Text {
+        id: text1
+        x: 600
+        y: 447
+        width: 91
+        height: 61
+        color: "#ffffff"
+        text: stringMapper.text
+        font.pixelSize: 45
 
+        horizontalAlignment: Text.AlignHCenter
+        font.family: "Agency FB"
 
+        StringMapper {
+            id: stringMapper
+            input: rangeMapper.output
+            decimals: 0
+        }
+
+        RangeMapper {
+            id: rangeMapper
+            outputMaximum: 160
+            inputMaximum: 1000
+            input: timeline2.currentFrame
+        }
     }
 
 }
