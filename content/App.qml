@@ -13,10 +13,7 @@ Window {
     visible: true
     title: "GaugesTest"
 
-    GaugeTestForm {
-        id:carGauge
-
+    GaugeLogic {
     }
 
 }
-
